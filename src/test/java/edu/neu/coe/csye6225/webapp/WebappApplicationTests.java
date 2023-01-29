@@ -1,7 +1,11 @@
 package edu.neu.coe.csye6225.webapp;
 
+import org.assertj.core.api.Assertions;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class WebappApplicationTests {
 
@@ -51,9 +55,9 @@ class WebappApplicationTests {
 //	  Assertions.assertThat(userObj.getId()).isGreaterThan(0);
 //    }
 	
-//	@Test
-//    public void Test() {
-//		Assertions.assertThat(1).isGreaterThan(0);
-//	}
+	@Test
+    public void Test() {
+		Assertions.assertThat(1).isGreaterThan(0);
+	}
 	
 }
