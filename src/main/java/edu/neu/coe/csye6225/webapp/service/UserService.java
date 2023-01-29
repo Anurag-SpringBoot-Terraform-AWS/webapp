@@ -17,7 +17,7 @@ public class UserService {
 
 	@Autowired
 	UserRepository userrepo;
-
+	
 	public String createUser(User user) throws UserExistException {
 		User userDto = userrepo.findByUsername(user.getUsername());
 		if (userDto == null) {
