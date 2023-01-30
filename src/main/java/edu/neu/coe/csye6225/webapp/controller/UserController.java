@@ -1,8 +1,7 @@
 package edu.neu.coe.csye6225.webapp.controller;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import edu.neu.coe.csye6225.webapp.constants.UserConstants;
 import edu.neu.coe.csye6225.webapp.exeception.DataNotFoundExeception;
 import edu.neu.coe.csye6225.webapp.exeception.InvalidInputException;
