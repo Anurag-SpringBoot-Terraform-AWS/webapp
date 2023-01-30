@@ -1,4 +1,5 @@
 //package edu.neu.coe.csye6225.webapp.config;
+//import java.util.ArrayList;
 //import java.util.Collection;
 //
 //import org.springframework.security.core.GrantedAuthority;
@@ -14,11 +15,12 @@
 //    public CustomUserDetails(User user) {
 //        super();
 //        this.user = user;
+//        System.out.println(user.getUsername()+" "+user.getPassword());
 //    }
 //
 //    @Override
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return null ;
+//        return null;
 //    }
 //
 //    @Override

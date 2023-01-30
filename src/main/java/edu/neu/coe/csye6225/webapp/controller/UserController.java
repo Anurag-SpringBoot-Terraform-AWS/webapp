@@ -33,7 +33,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-    @GetMapping(value = "user/{userId}")
+    @GetMapping(value = "/user/{userId}")
     public ResponseEntity<?> getUserDetails(@PathVariable("userId") String userId){
     	try {
     		if(userId.isBlank()||userId.isEmpty()) {
@@ -54,7 +54,7 @@ public class UserController {
         
     }
     
-    @PutMapping(value = "user/{userId}")
+    @PutMapping(value = "/user/{userId}")
     public ResponseEntity<?> updateUserDetails(@PathVariable("userId") String userId,@Valid @RequestBody UserUpdateRequestModel user,Errors error){
     	try {
     		if(userId.isBlank()||userId.isEmpty()) {
@@ -80,7 +80,7 @@ public class UserController {
         
     }
     
-    @PostMapping("user")
+    @PostMapping("/user")
     public ResponseEntity<String> createUser(@Valid @RequestBody User user,Errors error){
     	try {
     		if(error.hasErrors()) {

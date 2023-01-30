@@ -11,7 +11,7 @@ import edu.neu.coe.csye6225.webapp.model.User;
 import edu.neu.coe.csye6225.webapp.model.UserDto;
 import edu.neu.coe.csye6225.webapp.model.UserUpdateRequestModel;
 import edu.neu.coe.csye6225.webapp.repository.UserRepository;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Service
 public class UserService {
 
@@ -21,6 +21,8 @@ public class UserService {
 	public String createUser(User user) throws UserExistException {
 		User userDto = userrepo.findByUsername(user.getUsername());
 		if (userDto == null) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			userrepo.save(user);
 			return "Created User";
 		}
