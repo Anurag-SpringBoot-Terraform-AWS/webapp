@@ -1,13 +1,14 @@
 package edu.neu.coe.csye6225.webapp.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import lombok.Data;
 
 @Data
 public class UserDto {
 
-	private Long id;
+	private UUID id;
     private String firstName;
     private String lastName;
     private String username;

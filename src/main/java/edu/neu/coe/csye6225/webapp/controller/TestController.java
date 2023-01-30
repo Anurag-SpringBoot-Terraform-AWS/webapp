@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.neu.coe.csye6225.webapp.model.UserDto;
 
 @RestController
-//@RequestMapping("/healthz")
+@RequestMapping("/healthz")
 public class TestController {
 
-	@GetMapping("/healthz")
+	@GetMapping()
 	public ResponseEntity<?> getHealth() {
 		return new ResponseEntity<UserDto>( HttpStatus.OK);
 	}

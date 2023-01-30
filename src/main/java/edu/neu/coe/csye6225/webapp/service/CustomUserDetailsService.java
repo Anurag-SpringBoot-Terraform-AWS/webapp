@@ -1,10 +1,8 @@
 package edu.neu.coe.csye6225.webapp.service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,16 +19,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        System.out.println(user.getUsername()+" "+user.getPassword());
         if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        System.out.println(user.getUsername()+" "+user.getPassword());
         return new org.springframework.security.core.userdetails.User(
               user.getUsername(), user.getPassword(),Collections.emptyList());
-//        return new org.springframework.security.core.userdetails.User(
-//                user.getUsername(), user.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("USER")));
-//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true,
-//                true, true, true, new ArrayList<>());
     }
 }

@@ -16,40 +16,20 @@ import edu.neu.coe.csye6225.webapp.service.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
-//	@Autowired
-//    private DataSource dataSource;
-//     
-//    @Autowired
-//    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
-//            .dataSource(dataSource)
-//            .usersByUsernameQuery("select username, password, enabled from user where username=?")
-//        ;
-//    }
- 
 
 	@Autowired
 	CustomUserDetailsService userService;
 
-	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userService);
-		authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
-		return authProvider;
-	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.authorizeHttpRequests((authz) -> authz.requestMatchers(HttpMethod.POST, "/v1/user").permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/healthz", "GET")).permitAll()
-//				.requestMatchers(new AntPathRequestMatcher("v1/user", "GET")).hasAuthority("USER")
 				.anyRequest()
 				.authenticated());
 		http.csrf((csrf) -> csrf.disable());
-		http.authenticationProvider(authenticationProvider());
+		http.httpBasic();
 		return http.build();
 	}
 }
