@@ -6,11 +6,11 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: webapp
+name: CI Workflow
 
 on:
-  push:
-    branches: [ "main" ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -25,6 +25,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+    - name: Build Maven
+      run: mvn clean install
+    - name: Test
+      run: mvn test -DskipTests=false
 
