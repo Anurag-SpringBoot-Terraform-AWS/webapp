@@ -2,7 +2,7 @@ package edu.neu.coe.csye6225.webapp.model;
 
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.UUID
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
