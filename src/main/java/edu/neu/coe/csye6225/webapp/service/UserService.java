@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.neu.coe.csye6225.webapp.exeception.DataNotFoundExeception;
+import edu.neu.coe.csye6225.webapp.exeception.UserAuthrizationExeception;
 import edu.neu.coe.csye6225.webapp.exeception.UserExistException;
 import edu.neu.coe.csye6225.webapp.model.User;
 import edu.neu.coe.csye6225.webapp.model.UserDto;
@@ -45,13 +46,16 @@ public class UserService {
 		throw new DataNotFoundExeception("User Not Found");
 	}
 
-	public String updateUserDetails(UUID userId, UserUpdateRequestModel user) throws DataNotFoundExeception {
+	public String updateUserDetails(UUID userId, UserUpdateRequestModel user) throws DataNotFoundExeception, UserAuthrizationExeception {
 		Optional<User> userObj = userrepo.findById(userId);
 		if (userObj.isPresent()) {
+			if(!userObj.get().getUsername().equals(user.getUsername()))
+				throw new UserAuthrizationExeception("Forbidden to Update Data");
 			User dto = userObj.get();
 			dto.setFirstName(user.getFirstName());
 			dto.setLastName(user.getLastName());
 			dto.setPassword(encoder().encode(user.getPassword()));
+			dto.setUsername(user.getUsername());
 			userrepo.save(dto);
 			return "Updated User Details Successfully";
 
