@@ -7,17 +7,16 @@ import static org.mockito.Mockito.when;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import edu.neu.coe.csye6225.webapp.model.User;
 import edu.neu.coe.csye6225.webapp.repository.UserRepository;
 import edu.neu.coe.csye6225.webapp.service.CustomUserDetailsService;
-
-@ExtendWith(SpringExtension.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
 class WebappApplicationTests {
 
@@ -42,4 +41,3 @@ class WebappApplicationTests {
 		assertEquals(user.getUsername(), service.loadUserByUsername(username).getUsername());
 	}
 }
-
