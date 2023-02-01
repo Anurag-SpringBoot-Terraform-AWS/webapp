@@ -36,7 +36,7 @@ public class User {
 
 	@JsonProperty("username")
     @Email(message = "Username/Email is not in format, please check")
-    private String username;
+    private String username
 	
 	@JsonProperty("first_name")
     @Column(name="first_name")
