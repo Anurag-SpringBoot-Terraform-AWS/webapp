@@ -8,16 +8,18 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ContextConfiguration;
 
 import edu.neu.coe.csye6225.webapp.model.User;
 import edu.neu.coe.csye6225.webapp.repository.UserRepository;
-import edu.neu.coe.csye6225.webapp.service.CustomUserDetailsService;
-@RunWith(SpringRunner.class)
+import edu.neu.coe.csye6225.webapp.service.UserService;
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
+@ContextConfiguration(classes = { WebappApplicationTests.class })
 class WebappApplicationTests {
 
 	@Test
@@ -25,10 +27,10 @@ class WebappApplicationTests {
 		assertTrue("Hello".equals("Hello"));
 	}
 
-	@Autowired
-	private CustomUserDetailsService service;
+	@InjectMocks
+	private UserService service;
 
-	@MockBean
+	@Mock
 	private UserRepository repository;
 
 	@Test

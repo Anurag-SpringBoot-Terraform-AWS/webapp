@@ -14,17 +14,18 @@ import edu.neu.coe.csye6225.webapp.model.User;
 import edu.neu.coe.csye6225.webapp.model.UserDto;
 import edu.neu.coe.csye6225.webapp.model.UserUpdateRequestModel;
 import edu.neu.coe.csye6225.webapp.repository.UserRepository;
+
 @Service
 public class UserService {
 
 	@Autowired
 	UserRepository userrepo;
-	
+
 	@Bean
-    public BCryptPasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
-	
+	public BCryptPasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 	public String createUser(User user) throws UserExistException {
 		User userDto = userrepo.findByUsername(user.getUsername());
 		if (userDto == null) {
@@ -38,7 +39,7 @@ public class UserService {
 	public UserDto getUserDetails(UUID userId) throws DataNotFoundExeception {
 		Optional<User> user = userrepo.findById(userId);
 		if (user.isPresent()) {
-			UserDto dto=UserDto.getUserDto(user.get());
+			UserDto dto = UserDto.getUserDto(user.get());
 			return dto;
 		}
 		throw new DataNotFoundExeception("User Not Found");
@@ -47,16 +48,24 @@ public class UserService {
 	public String updateUserDetails(UUID userId, UserUpdateRequestModel user) throws DataNotFoundExeception {
 		Optional<User> userObj = userrepo.findById(userId);
 		if (userObj.isPresent()) {
-			User dto=userObj.get();
+			User dto = userObj.get();
 			dto.setFirstName(user.getFirstName());
 			dto.setLastName(user.getLastName());
 			dto.setPassword(encoder().encode(user.getPassword()));
 			userrepo.save(dto);
 			return "Updated User Details Successfully";
-			
+
 		}
 		throw new DataNotFoundExeception("User Not Found");
 	}
-	
-	
+
+	public User loadUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		User user = userrepo.findByUsername(username);
+		if (user == null) {
+			return null;
+		}
+		return user;
+	}
+
 }
