@@ -64,5 +64,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="account_updated")
     private LocalDateTime accountUpdated;
+    
+    
 
 }
