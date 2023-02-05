@@ -26,6 +26,7 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests((authz) -> authz.requestMatchers(HttpMethod.POST, "/v1/user").permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/healthz", "GET")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/v1/product/*", "GET")).permitAll()
 				.anyRequest()
 				.authenticated());
 		http.csrf((csrf) -> csrf.disable());

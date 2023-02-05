@@ -36,7 +36,7 @@ class WebappApplicationTests {
 	@Test
 	public void saveUserTest() {
 		User user = new User();
-		user.setId(UUID.randomUUID());user.setFirstName("karthik");
+		user.setId(Long.valueOf(100));user.setFirstName("karthik");
 		user.setLastName("P");user.setPassword("1234");user.setUsername("a1100@dddfgii.com");
 		String username = "a1100@dddfgii.com";
 		when(repository.findByUsername(username)).thenReturn(user);

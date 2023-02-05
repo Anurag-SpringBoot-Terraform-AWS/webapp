@@ -1,5 +1,4 @@
 package edu.neu.coe.csye6225.webapp.controller;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController()
-@RequestMapping("v1")
+@RequestMapping("v1/user")
 public class UserController {
 	
 	@Autowired
@@ -39,8 +38,8 @@ public class UserController {
 	AuthService authService;
 	
 	
-    @GetMapping(value = "/user/{userId}")
-    public ResponseEntity<?> getUserDetails(@PathVariable("userId") UUID userId,HttpServletRequest request){
+    @GetMapping(value = "/{userId}")
+    public ResponseEntity<?> getUserDetails(@PathVariable("userId") Long userId,HttpServletRequest request){
     	try {
     		if(userId.toString().isBlank()||userId.toString().isEmpty()) {
             	throw new InvalidInputException("Enter Valid User Id");
@@ -65,8 +64,8 @@ public class UserController {
         
     }
     
-    @PutMapping(value = "/user/{userId}")
-    public ResponseEntity<?> updateUserDetails(@PathVariable("userId") UUID userId,@Valid @RequestBody UserUpdateRequestModel user,
+    @PutMapping(value = "/{userId}")
+    public ResponseEntity<?> updateUserDetails(@PathVariable("userId") Long userId,@Valid @RequestBody UserUpdateRequestModel user,
     		HttpServletRequest request,Errors error){
     	try {
     		if(userId.toString().isBlank()||userId.toString().isEmpty()) {
@@ -78,7 +77,7 @@ public class UserController {
     					.collect(Collectors.joining(","));
     			throw new InvalidInputException(response);
     		}
-			return new ResponseEntity<String>( userService.updateUserDetails(userId,user),HttpStatus.CREATED);
+			return new ResponseEntity<String>( userService.updateUserDetails(userId,user),HttpStatus.NO_CONTENT);
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
 			return new ResponseEntity<String>( e.getMessage(),HttpStatus.BAD_REQUEST);
@@ -97,7 +96,7 @@ public class UserController {
         
     }
     
-    @PostMapping("/user")
+    @PostMapping()
     public ResponseEntity<String> createUser(@Valid @RequestBody User user,Errors error){
     	try {
     		if(error.hasErrors()) {

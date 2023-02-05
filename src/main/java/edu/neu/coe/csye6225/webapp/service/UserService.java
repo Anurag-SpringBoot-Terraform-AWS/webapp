@@ -1,7 +1,6 @@
 package edu.neu.coe.csye6225.webapp.service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,10 +10,12 @@ import org.springframework.stereotype.Service;
 import edu.neu.coe.csye6225.webapp.exeception.DataNotFoundExeception;
 import edu.neu.coe.csye6225.webapp.exeception.UserAuthrizationExeception;
 import edu.neu.coe.csye6225.webapp.exeception.UserExistException;
+import edu.neu.coe.csye6225.webapp.model.Product;
 import edu.neu.coe.csye6225.webapp.model.User;
 import edu.neu.coe.csye6225.webapp.model.UserDto;
 import edu.neu.coe.csye6225.webapp.model.UserUpdateRequestModel;
 import edu.neu.coe.csye6225.webapp.repository.UserRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class UserService {
@@ -37,7 +38,7 @@ public class UserService {
 		throw new UserExistException("User Exists Already");
 	}
 
-	public UserDto getUserDetails(UUID userId) throws DataNotFoundExeception {
+	public UserDto getUserDetails(Long userId) throws DataNotFoundExeception {
 		Optional<User> user = userrepo.findById(userId);
 		if (user.isPresent()) {
 			UserDto dto = UserDto.getUserDto(user.get());
@@ -46,7 +47,7 @@ public class UserService {
 		throw new DataNotFoundExeception("User Not Found");
 	}
 
-	public String updateUserDetails(UUID userId, UserUpdateRequestModel user) throws DataNotFoundExeception, UserAuthrizationExeception {
+	public String updateUserDetails(Long userId, UserUpdateRequestModel user) throws DataNotFoundExeception, UserAuthrizationExeception {
 		Optional<User> userObj = userrepo.findById(userId);
 		if (userObj.isPresent()) {
 			if(!userObj.get().getUsername().equals(user.getUsername()))
