@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.NumberFormat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,7 +18,7 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -58,6 +57,7 @@ public class Product {
     private String manufacturer;
     
     @IntegerCheck
+    @NotNull( message="quantity cannot be empty")
     @Min(value=1, message="Quantity must be greater than or equal to 1")
     @Max(value=100, message="Quantity must be less than or equal to 100")
     private Integer quantity;

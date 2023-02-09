@@ -97,14 +97,14 @@ public class UserController {
     }
     
     @PostMapping()
-    public ResponseEntity<String> createUser(@Valid @RequestBody User user,Errors error){
+    public ResponseEntity<?> createUser(@Valid @RequestBody User user,Errors error){
     	try {
     		if(error.hasErrors()) {
     			String response = error.getAllErrors().stream().map(ObjectError::getDefaultMessage)
     					.collect(Collectors.joining(","));
     			throw new InvalidInputException(response);
     		}
-			return new ResponseEntity<String>( userService.createUser(user),HttpStatus.CREATED);
+			return new ResponseEntity<User>( userService.createUser(user),HttpStatus.CREATED);
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
 			return new ResponseEntity<String>( e.getMessage(),HttpStatus.BAD_REQUEST);

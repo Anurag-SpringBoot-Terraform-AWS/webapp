@@ -1,5 +1,7 @@
 package edu.neu.coe.csye6225.webapp.controller;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,7 +32,6 @@ import edu.neu.coe.csye6225.webapp.service.ProductService;
 import edu.neu.coe.csye6225.webapp.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import java.util.List;
 @RestController()
 @RequestMapping("v1/product")
 public class ProductController {
@@ -117,6 +117,7 @@ public class ProductController {
 			// TODO Auto-generated catch block
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
+			System.out.println(e);
 			return new ResponseEntity<String>(UserConstants.InternalErr, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
@@ -124,14 +125,14 @@ public class ProductController {
 
 	@PatchMapping(value = "/{productId}")
 	public ResponseEntity<?> patchUserDetails(@PathVariable("productId") Long productId,
-			@Valid @RequestBody Product product, HttpServletRequest request, Errors error) {
+			 @RequestBody Map<String, Object> updates, HttpServletRequest request) {
 		try {
 			if (productId.toString().isBlank() || productId.toString().isEmpty()) {
 				throw new InvalidInputException("Enter Valid Product Id");
 			}
 			authservice.isAuthorised(productService.getProduct(productId).getOwnerUserId(),
 					request.getHeader("Authorization").split(" ")[1]);
-			return new ResponseEntity<String>(productService.updateProductDetails(productId, product),
+			return new ResponseEntity<String>(productService.patchProductDetails(productId, updates),
 					HttpStatus.NO_CONTENT);
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
