@@ -58,7 +58,7 @@ public class Product {
     
     @IntegerCheck
     @NotNull( message="quantity cannot be empty")
-    @Min(value=1, message="Quantity must be greater than or equal to 1")
+    @Min(value=0, message="Quantity must be greater than or equal to 1")
     @Max(value=100, message="Quantity must be less than or equal to 100")
     private Integer quantity;
     

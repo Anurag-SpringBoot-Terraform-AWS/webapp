@@ -10,12 +10,10 @@ import org.springframework.stereotype.Service;
 import edu.neu.coe.csye6225.webapp.exeception.DataNotFoundExeception;
 import edu.neu.coe.csye6225.webapp.exeception.UserAuthrizationExeception;
 import edu.neu.coe.csye6225.webapp.exeception.UserExistException;
-import edu.neu.coe.csye6225.webapp.model.Product;
 import edu.neu.coe.csye6225.webapp.model.User;
 import edu.neu.coe.csye6225.webapp.model.UserDto;
 import edu.neu.coe.csye6225.webapp.model.UserUpdateRequestModel;
 import edu.neu.coe.csye6225.webapp.repository.UserRepository;
-import jakarta.validation.Valid;
 
 @Service
 public class UserService {
@@ -28,12 +26,13 @@ public class UserService {
 		return new BCryptPasswordEncoder();
 	}
 
-	public User createUser(User user) throws UserExistException {
+	public UserDto createUser(User user) throws UserExistException {
 		User userDto = userrepo.findByUsername(user.getUsername());
 		if (userDto == null) {
 			user.setPassword(encoder().encode(user.getPassword()));
 			userrepo.save(user);
-			return user;
+			UserDto dto=UserDto.getUserDto(user);
+			return dto;
 		}
 		throw new UserExistException("User Exists Already");
 	}

@@ -109,8 +109,8 @@ public class ProductService {
 				p.setManufacturer(manufacture);
 				break;
 			case "quantity":
-				Integer quantity = (Integer) map.getValue();
-				if (quantity < 1 || quantity > 100)
+				Integer quantity = Integer.parseInt((String) map.getValue());
+				if (quantity < 0 || quantity > 100)
 					throw new InvalidInputException("Product quantity should be btw 1 and 100");
 				p.setQuantity(quantity);
 				break;

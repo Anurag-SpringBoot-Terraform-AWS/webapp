@@ -104,7 +104,7 @@ public class UserController {
     					.collect(Collectors.joining(","));
     			throw new InvalidInputException(response);
     		}
-			return new ResponseEntity<User>( userService.createUser(user),HttpStatus.CREATED);
+			return new ResponseEntity<UserDto>( userService.createUser(user),HttpStatus.CREATED);
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
 			return new ResponseEntity<String>( e.getMessage(),HttpStatus.BAD_REQUEST);
