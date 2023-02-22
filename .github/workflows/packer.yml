@@ -25,6 +25,12 @@ jobs:
           mkdir stage && cp target/webapp-0.0.1-SNAPSHOT.jar stage   
           cp stage/*.jar ami
           cd ami && ls -all
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{secrets.AWS_REGION}}
       - name: Packer build
         uses: hashicorp/packer-github-actions@master
         with:
@@ -32,8 +38,3 @@ jobs:
           arguments: "-color=false -on-error=abort"
           target: main.pkr.hcl
           working_directory: ami
-        env:
-          PACKER_LOG: 1 # enable debug log for packer
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
