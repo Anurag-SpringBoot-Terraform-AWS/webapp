@@ -28,9 +28,11 @@ jobs:
           mvn clean install
           mvn -B package --file pom.xml
           echo ${{ steps.build.outputs.artifact }}
-          mkdir stage && cp target/${{ steps.build.outputs.artifact }} stage
+          mkdir stage && cp /target/${{ steps.build.outputs.artifact }} stage
           cp stage/*.jar ami
           cd ami && ls -all
+        env:
+          APP_NAME: my-spring-boot-app
       - name: Test
         run: mvn test -DskipTests=false
       - name: Validate Packer
