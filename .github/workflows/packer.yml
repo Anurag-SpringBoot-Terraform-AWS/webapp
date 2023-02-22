@@ -19,7 +19,7 @@ jobs:
         with:
           command: build
           arguments: main.pkr.hcl
-          working-directory: ./ami
+          working_directory: ./ami
         env:
           PACKER_LOG: 1 # enable debug log for packer
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
