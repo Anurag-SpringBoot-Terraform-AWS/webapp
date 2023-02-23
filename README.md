@@ -23,7 +23,6 @@ Endpoint - 'http://localhost:8080/healthz'
 Assignment 2
 1. Create Product APIs as per swagger doc requirements (https://app.swaggerhub.com/apis-docs/csye6225-webapp/cloud-native-webapp/spring2023-a2#/public/get_v1_product__productId_)
 2. RequestMapping Url for Product http://localhost:8080/v1/product
-   
-    
+  
     
    
