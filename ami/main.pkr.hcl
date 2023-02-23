@@ -86,7 +86,9 @@ build {
 
   provisioner "shell" {
     inline = [
+      "sudo chmod 770 /home/ec2-user/webapp-0.0.1-SNAPSHOT.jar",
       "sudo cp /tmp/webservice.service /etc/systemd/system",
+      "sudo chmod 770 /etc/systemd/system/webservice.service",
       "sudo systemctl start webservice.service",
       "sudo systemctl enable webservice.service",
       "sudo systemctl restart webservice.service",
