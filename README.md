@@ -8,7 +8,7 @@ Build Instructions:
 Clone this repository into the local system
 Open the CLI
 mvn clean install
-mvn spring-boot:run
+mvn spring-boot:run  
 
 Run the test
 mvn test -DskipTests=false
