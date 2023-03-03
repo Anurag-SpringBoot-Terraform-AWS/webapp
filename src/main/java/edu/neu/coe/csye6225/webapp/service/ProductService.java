@@ -75,7 +75,9 @@ public class ProductService {
 	public String deleteProductDetails(Long productId) throws DataNotFoundExeception {
 		Product p = getProduct(productId);
 		productRepo.deleteById(p.getId());
+		System.out.println("Inside deleteProductDetails "+productId);
 		imageService.deleteImageByProductId(productId, p.getOwnerUserId());
+		System.out.println("Inside product delete service 80");
 		return "Deleted Product";
 	}
 
