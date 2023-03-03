@@ -102,8 +102,10 @@ public class ImageService {
 		// TODO Auto-generated method stub
 		String path = String.format("%s/%s/", userId, productId);
 		String folderName = path;
+		System.out.println("line 205 deleteImageByProductId "+path);
 		ListObjectsV2Request listObjectsRequest = new ListObjectsV2Request().withBucketName(bucketName).withPrefix(folderName);
 		ListObjectsV2Result objects = amazonS3.listObjectsV2(listObjectsRequest);
+		System.out.println("Line 107");
 		List<S3ObjectSummary> summaries = objects.getObjectSummaries();
 		System.out.println(objects+" "+summaries);
 		for (S3ObjectSummary summary : summaries) {
