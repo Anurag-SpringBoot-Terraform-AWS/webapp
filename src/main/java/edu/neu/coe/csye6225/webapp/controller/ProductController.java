@@ -174,6 +174,7 @@ public class ProductController {
 			// TODO Auto-generated catch block
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
+			System.out.println(e);
 			return new ResponseEntity<String>(UserConstants.InternalErr, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
