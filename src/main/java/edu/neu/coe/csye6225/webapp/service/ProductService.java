@@ -3,6 +3,8 @@ package edu.neu.coe.csye6225.webapp.service;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import edu.neu.coe.csye6225.webapp.repository.ProductRepository;
 @Service
 public class ProductService {
 
+	private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
+	
 	@Autowired
 	ProductRepository productRepo;
 
@@ -28,6 +32,7 @@ public class ProductService {
 	public Product createProduct(Product product, String userName)
 			throws UserAuthrizationExeception, InvalidInputException {
 		// TODO Auto-generated method stub
+		logger.info("Start of ProductService.createProduct with productId " + product.getId());
 		User userobj = userService.loadUserByUsername(userName);
 		if (userobj != null) {
 			checkSku(1L, userobj.getId(), product.getSku(), "PostCheck");
@@ -40,6 +45,7 @@ public class ProductService {
 	}
 
 	public Product checkSku(Long id, Long ownerId, String sku, String check) throws InvalidInputException {
+		logger.info("Start of ProductService.checkSku with productId " + id);
 		Product p;
 		if (check.equals("PostCheck"))
 			p = productRepo.findProductByownerUserIdAndSku(ownerId, sku);
@@ -60,6 +66,7 @@ public class ProductService {
 
 	public String updateProductDetails(Long productId, Product product)
 			throws DataNotFoundExeception, InvalidInputException {
+		logger.info("Start of ProductService.updateProductDetails with productId " + productId);
 		Product p = getProduct(productId);
 		checkSku(p.getId(), p.getOwnerUserId(), product.getSku(), "PutCheck");
 		p.setId(productId);
@@ -73,6 +80,7 @@ public class ProductService {
 	}
 
 	public String deleteProductDetails(Long productId) throws DataNotFoundExeception {
+		logger.info("Start of ProductService.deleteProductDetails with productId " + productId);
 		Product p = getProduct(productId);
 		productRepo.deleteById(p.getId());
 		System.out.println("Inside deleteProductDetails "+productId);
@@ -83,6 +91,7 @@ public class ProductService {
 
 	public String patchProductDetails(Long productId, Map<String, Object> updates)
 			throws DataNotFoundExeception, InvalidInputException {
+		logger.info("Start of ProductService.patchProductDetails with productId " + productId);
 		Product p = getProduct(productId);
 		if (updates.size() == 0)
 			throw new InvalidInputException("Request can't be empty");

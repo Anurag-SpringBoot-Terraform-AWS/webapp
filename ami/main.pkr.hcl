@@ -69,20 +69,24 @@ build {
     "source.amazon-ebs.my-ami"
   ]
 
-  provisioner "shell" {
-    script = "script.sh"
-  }
-
   provisioner "file" {
     source      = "webapp-0.0.1-SNAPSHOT.jar"
     destination = "webapp-0.0.1-SNAPSHOT.jar"
   }
 
+  provisioner "file" {
+    source      = "cloudwatch-config.json"
+    destination = "/tmp/cloudwatch-config.json"
+  }
+  provisioner "shell" {
+    script = "script.sh"
+  }
 
   provisioner "file" {
     source      = "webservice.service"
     destination = "/tmp/"
   }
+
 
   // provisioner "shell" {
   //   inline = [
