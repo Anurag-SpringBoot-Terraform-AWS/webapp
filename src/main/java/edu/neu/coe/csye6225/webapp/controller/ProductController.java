@@ -120,11 +120,11 @@ public class ProductController {
 	}
 
 	@PutMapping(value = "/{productId}")
-	public ResponseEntity<?> updateUserDetails(@PathVariable("productId") Long productId,
+	public ResponseEntity<?> updateProductDetails(@PathVariable("productId") Long productId,
 			@Valid @RequestBody Product product, HttpServletRequest request, Errors error) {
 		try {
-			logger.info("Start of ProductController.updateUserDetails with productId "+productId);
-    		statsDClient.incrementCounter("endpoint.updateUserDetails.http.put");
+			logger.info("Start of ProductController.updateProductDetails with productId "+productId);
+    		statsDClient.incrementCounter("endpoint.updateProductDetails.http.put");
 			if (productId.toString().isBlank() || productId.toString().isEmpty()) {
 				throw new InvalidInputException("Enter Valid Product Id");
 			}
@@ -134,29 +134,29 @@ public class ProductController {
 					HttpStatus.NO_CONTENT);
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
-			logger.warn("Bad Request error in ProductController.updateUserDetails with productId "+productId);
+			logger.warn("Bad Request error in ProductController.updateProductDetails with productId "+productId);
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (UserAuthrizationExeception e) {
 			// TODO Auto-generated catch block
-			logger.warn("Authorization error in ProductController.updateUserDetails "+e);
+			logger.warn("Authorization error in ProductController.updateProductDetails "+e);
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FORBIDDEN);
 		} catch (DataNotFoundExeception e) {
 			// TODO Auto-generated catch block
-			logger.warn("Data Not found error in ProductController.updateUserDetails with productId "+productId);
+			logger.warn("Data Not found error in ProductController.updateProductDetails with productId "+productId);
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
-			logger.error("Server error in ProductController.getProduct "+e);
+			logger.error("Server error in ProductController.updateProductDetails "+e);
 			return new ResponseEntity<String>(UserConstants.InternalErr, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
 
 	@PatchMapping(value = "/{productId}")
-	public ResponseEntity<?> patchUserDetails(@PathVariable("productId") Long productId,
+	public ResponseEntity<?> patchProductDetails(@PathVariable("productId") Long productId,
 			@RequestBody Map<String, Object> updates, HttpServletRequest request) {
 		try {
-			logger.info("Start of ProductController.patchUserDetails with productId "+productId);
-    		statsDClient.incrementCounter("endpoint.patchUserDetails.http.patch");
+			logger.info("Start of ProductController.patchProductDetails with productId "+productId);
+    		statsDClient.incrementCounter("endpoint.patchProductDetails.http.patch");
 			if (productId.toString().isBlank() || productId.toString().isEmpty()) {
 				throw new InvalidInputException("Enter Valid Product Id");
 			}
@@ -166,28 +166,28 @@ public class ProductController {
 					HttpStatus.NO_CONTENT);
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
-			logger.warn("Bad Request error in ProductController.patchUserDetails with productId "+productId);
+			logger.warn("Bad Request error in ProductController.patchProductDetails with productId "+productId);
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (UserAuthrizationExeception e) {
 			// TODO Auto-generated catch block
-			logger.warn("Authorization error in ProductController.patchUserDetails "+e);
+			logger.warn("Authorization error in ProductController.patchProductDetails "+e);
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FORBIDDEN);
 		} catch (DataNotFoundExeception e) {
 			// TODO Auto-generated catch block
-			logger.warn("Data Not found error in ProductController.patchUserDetails with productId "+productId);
+			logger.warn("Data Not found error in ProductController.patchProductDetails with productId "+productId);
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
-			logger.error("Server error in ProductController.patchUserDetails "+e);
+			logger.error("Server error in ProductController.patchProductDetails "+e);
 			return new ResponseEntity<String>(UserConstants.InternalErr, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
 
 	@DeleteMapping(value = "/{productId}")
-	public ResponseEntity<?> deleteUserDetails(@PathVariable("productId") Long productId, HttpServletRequest request) {
+	public ResponseEntity<?> deleteProductDetails(@PathVariable("productId") Long productId, HttpServletRequest request) {
 		try {
-			logger.info("Start of ProductController.deleteUserDetails with productId "+productId);
-    		statsDClient.incrementCounter("endpoint.deleteUserDetails.http.delete");
+			logger.info("Start of ProductController.deleteProductDetails with productId "+productId);
+    		statsDClient.incrementCounter("endpoint.deleteProductDetails.http.delete");
 			if (productId.toString().isBlank() || productId.toString().isEmpty()) {
 				throw new InvalidInputException("Enter Valid Product Id");
 			}
@@ -196,18 +196,18 @@ public class ProductController {
 			return new ResponseEntity<String>(productService.deleteProductDetails(productId), HttpStatus.NO_CONTENT);
 		} catch (InvalidInputException e) {
 			// TODO Auto-generated catch block
-			logger.warn("Bad Request error in ProductController.deleteUserDetails with productId "+productId);
+			logger.warn("Bad Request error in ProductController.deleteProductDetails with productId "+productId);
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		} catch (UserAuthrizationExeception e) {
 			// TODO Auto-generated catch block
-			logger.warn("Authorization error in ProductController.deleteUserDetails "+e);
+			logger.warn("Authorization error in ProductController.deleteProductDetails "+e);
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FORBIDDEN);
 		} catch (DataNotFoundExeception e) {
 			// TODO Auto-generated catch block
-			logger.warn("Data Not found error in ProductController.deleteUserDetails with productId "+productId);
+			logger.warn("Data Not found error in ProductController.deleteProductDetails with productId "+productId);
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
-			logger.error("Server error in ProductController.deleteUserDetails "+e);
+			logger.error("Server error in ProductController.deleteProductDetails "+e);
 			return new ResponseEntity<String>(UserConstants.InternalErr, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
