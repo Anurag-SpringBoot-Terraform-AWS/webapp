@@ -32,4 +32,11 @@ public class TestController {
 		statsDClient.incrementCounter("endpoint.getHealth.http.get");
 		return new ResponseEntity<UserDto>( HttpStatus.OK);
 	}
+
+	@GetMapping("/test")
+	public ResponseEntity<?> getHealth1() {
+		logger.info("Logger filePath "+loggingFilename);
+		statsDClient.incrementCounter("endpoint.getHealth1.http.get");
+		return new ResponseEntity<UserDto>( HttpStatus.OK);
+	}
 }
