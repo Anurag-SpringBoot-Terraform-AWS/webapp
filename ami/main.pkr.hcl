@@ -87,6 +87,11 @@ build {
     destination = "/tmp/"
   }
 
+   post-processor "manifest" {
+    output = "manifest.json"
+    strip_path = true
+  }
+
 
   // provisioner "shell" {
   //   inline = [
